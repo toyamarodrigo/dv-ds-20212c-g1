@@ -37,7 +37,7 @@ public class Prenda {
 	@Column(name = "prd_id")
 	private Long id;
 
-	@Column(name = "prd_descripcion")
+	@Column(name = "prd_descripcion", nullable = false)
 	private String descripcion;
 
 	@Column(name = "prd_tipo_prenda")
