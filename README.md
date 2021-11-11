@@ -93,9 +93,59 @@ o en consola sobre el proyecto a la altura del `pom.xml`
 dv-ds-20212c-g1$ mvn spring-boot:run
 ```
 
-> estará deployado en http://localhost:8090
+> estará deployado en <http://localhost:8090>
 
 **En caso de no encontrar la aplicación, verificar puerto/bbdd en `application.properties` o servicio mysql ejecutando**
+
+## Endpoints
+
+`GET todas las prendas`
+
+**http:localhost:8090/tienda/api/prendas/all**
+
+---
+
+`GET prenda por id`
+
+**http:localhost:8090/tienda/api/prendas/{id}**
+
+---
+
+`POST agregar prenda`
+
+**http:localhost:8090/tienda/api/prendas**
+
+```json
+// Body ex.
+{
+  "descripcion": "una descripcion",
+  "tipo": "CAMISA",
+  "precioBase": 12.34
+}
+```
+
+---
+
+`PUT modificar prenda por id`
+
+**http:localhost:8090/tienda/api/prendas/{id}**
+
+```json
+// Body ex.
+{
+  "descripcion": "otra descripcion",
+  "tipo": "TAPADO",
+  "precioBase": 34.56
+}
+```
+
+---
+
+`DELETE borrar prenda por id`
+
+**http:localhost:8090/tienda/api/prendas/{id}**
+
+---
 
 ### Diagrama de Clases
 
