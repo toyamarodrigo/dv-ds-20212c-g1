@@ -16,6 +16,8 @@ public interface PrendaService {
 	Prenda update(Prenda prenda) throws BusinessException;
 
 	void delete(Prenda prenda);
+	
+	void delete(Long id);
 
 	// Metodos de busqueda
 	Prenda findById(Long id) throws BusinessException;

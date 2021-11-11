@@ -53,6 +53,13 @@ public class PrendaServiceImpl implements PrendaService {
 	}
 
 	@Override
+	public void delete(Long id) {
+		LOGGER.debug("Borrando la prenda con el id: " + id);
+		
+		repository.deleteById(id);
+	}
+
+	@Override
 	public Prenda findById(Long id) throws BusinessException {
 		LOGGER.debug("Busqueda de una prenda por ID");
 
