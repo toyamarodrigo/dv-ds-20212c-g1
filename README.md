@@ -2,7 +2,7 @@
 
 ## Integrantes ✒️
 
-* **Natalia Oliveto** - *Desarrollador*
+* **Natalia Oliveto** - *Desarrolladora*
 * **Marcos Rearte** - *Desarrollador*
 * **Toyama Rodrigo** - *Desarrollador*
 
