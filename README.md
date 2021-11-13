@@ -101,19 +101,19 @@ dv-ds-20212c-g1$ mvn spring-boot:run
 
 `GET todas las prendas`
 
-**http:localhost:8090/tienda/api/prendas/all**
+**http://localhost:8090/tienda/api/prendas/all**
 
 ---
 
 `GET prenda por id`
 
-**http:localhost:8090/tienda/api/prendas/{id}**
+**http://localhost:8090/tienda/api/prendas/{id}**
 
 ---
 
 `POST agregar prenda`
 
-**http:localhost:8090/tienda/api/prendas**
+**http://localhost:8090/tienda/api/prendas**
 
 ```json
 // Body ex.
@@ -128,7 +128,7 @@ dv-ds-20212c-g1$ mvn spring-boot:run
 
 `PUT modificar prenda por id`
 
-**http:localhost:8090/tienda/api/prendas/{id}**
+**http://localhost:8090/tienda/api/prendas/{id}**
 
 ```json
 // Body ex.
@@ -143,7 +143,7 @@ dv-ds-20212c-g1$ mvn spring-boot:run
 
 `DELETE borrar prenda por id`
 
-**http:localhost:8090/tienda/api/prendas/{id}**
+**http://localhost:8090/tienda/api/prendas/{id}**
 
 ---
 
