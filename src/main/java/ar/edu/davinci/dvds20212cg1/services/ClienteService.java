@@ -15,7 +15,7 @@ public interface ClienteService {
 	Cliente update(Cliente cliente) throws BusinessException;
 
 	void delete(Cliente cliente);
-	
+
 	void delete(Long id);
 
 	// Metodos de busqueda
@@ -23,6 +23,7 @@ public interface ClienteService {
 
 	// Metodos de listado
 	List<Cliente> list();
+
 	Page<Cliente> list(Pageable pageable);
 
 	// Metodo de contador

@@ -68,14 +68,14 @@ public class VentaServiceImpl implements VentaService {
 
 	@Override
 	public void delete(Venta venta) {
-		// TODO Auto-generated method stub
-
+		LOGGER.debug("Borrando la venta con el id: " + venta.getId());
+		ventaRepository.delete(venta);
 	}
 
 	@Override
 	public void delete(Long id) {
-		// TODO Auto-generated method stub
-
+		LOGGER.debug("Borrando la venta con el id: " + id);
+		ventaRepository.deleteById(id);
 	}
 
 	@Override
@@ -86,20 +86,19 @@ public class VentaServiceImpl implements VentaService {
 
 	@Override
 	public List<Venta> list() {
-		// TODO Auto-generated method stub
-		return null;
+		LOGGER.debug("Listado de prendas");
+		return ventaRepository.findAll();
 	}
 
 	@Override
 	public Page<Venta> list(Pageable pageable) {
-		// TODO Auto-generated method stub
-		return null;
+		LOGGER.debug("Listado de ventas paginadas");
+		return ventaRepository.findAll(pageable);
 	}
 
 	@Override
 	public long count() {
-		// TODO Auto-generated method stub
-		return 0;
+		return ventaRepository.count();
 	}
 
 	@Override

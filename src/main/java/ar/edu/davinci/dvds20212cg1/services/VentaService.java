@@ -15,15 +15,18 @@ public interface VentaService {
 
 	// Metodos de creacion de una venta en Efectivo
 	public VentaEfectivo save(VentaEfectivo venta) throws BusinessException;
+
 	public VentaEfectivo save(VentaEfectivo ventaEfectivo, Item item) throws BusinessException;
-	
+
 	// Metodos de creacion de una venta con Tarjeta
 	public VentaTarjeta save(VentaTarjeta venta) throws BusinessException;
+
 	public VentaTarjeta save(VentaTarjeta ventaTarjeta, Item item) throws BusinessException;
-	
+
 	Venta update(Venta venta) throws BusinessException;
-	
+
 	void delete(Venta venta);
+
 	void delete(Long id);
 
 	// Metodos de busqueda
@@ -31,12 +34,15 @@ public interface VentaService {
 
 	// Metodos de listado
 	List<Venta> list();
+
 	Page<Venta> list(Pageable pageable);
 
 	// Metodo de contador
 	long count();
-	
+
 	public Venta addItem(Long id, Item item) throws BusinessException;
+
 	public Venta updateItem(Long ventaId, Long itemId, Item item) throws BusinessException;
+
 	public Venta deleteItem(Long ventaId, Long itemId) throws BusinessException;
 }
