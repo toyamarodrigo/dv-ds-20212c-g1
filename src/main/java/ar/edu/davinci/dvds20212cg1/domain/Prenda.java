@@ -1,5 +1,6 @@
 package ar.edu.davinci.dvds20212cg1.domain;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 import javax.persistence.Column;
@@ -27,7 +28,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor // Agrega constructor con todos los params
 @Data // Agrega todos los setter & getter
 @Builder // Crea una inner Class PrendaBuilder con un method build()
-public class Prenda {
+public class Prenda implements Serializable {
+	
+	private static final long serialVersionUID = 8307387603457708504L;
+
 	// Config JPA de la PJ de la tabla
 	@Id
 	// Config JPA de la manera en que se generan los IDs autogenerados
@@ -46,4 +50,8 @@ public class Prenda {
 
 	@Column(name = "prd_precio_base")
 	private BigDecimal precioBase;
+	
+	public BigDecimal getPrecioFinal() {
+		return precioBase;
+	}
 }

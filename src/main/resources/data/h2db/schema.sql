@@ -64,11 +64,12 @@ CREATE TABLE ventas (
   vta_id bigint NOT NULL AUTO_INCREMENT,
   tipo_venta varchar(31) NOT NULL,
   vta_fecha datetime(6) DEFAULT NULL,
-  vta_cli_id bigint NOT NULL,
+  vta_cli_id bigint DEFAULT NULL,
   PRIMARY KEY (vta_id),
-  --KEY vta_cli_fk (vta_cli_id),
+  KEY vta_cli_fk (vta_cli_id),
   CONSTRAINT vta_cli_fk FOREIGN KEY (vta_cli_id) REFERENCES clientes (cli_id)
 );
+
 
 --
 -- Table structure for table venta_items
@@ -80,9 +81,9 @@ CREATE TABLE venta_items (
   itm_prd_id bigint DEFAULT NULL,
   itm_vta_id bigint NOT NULL,
   PRIMARY KEY (itm_id),
-  --KEY itm_vta_fk (itm_vta_id),
+  KEY itm_vta_fk (itm_vta_id),
   CONSTRAINT itm_vta_fk FOREIGN KEY (itm_vta_id) REFERENCES ventas (vta_id),
-  --KEY itm_prd_fk (itm_prd_id),
+  KEY itm_prd_fk (itm_prd_id),
   CONSTRAINT itm_prd_fk FOREIGN KEY (itm_prd_id) REFERENCES prendas (prd_id)
 );
 
@@ -96,7 +97,6 @@ CREATE TABLE ventas_efectivo (
   CONSTRAINT vte_vta_fk FOREIGN KEY (vta_id) REFERENCES ventas (vta_id)
 );
 
-
 --
 -- Table structure for table ventas_tarjeta
 --
@@ -108,4 +108,3 @@ CREATE TABLE ventas_tarjeta (
   PRIMARY KEY (vta_id),
   CONSTRAINT vtt_vta_fk FOREIGN KEY (vta_id) REFERENCES ventas (vta_id)
 );
-
