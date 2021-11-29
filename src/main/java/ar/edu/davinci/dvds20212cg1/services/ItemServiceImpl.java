@@ -1,6 +1,7 @@
 package ar.edu.davinci.dvds20212cg1.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,14 +26,22 @@ public class ItemServiceImpl implements ItemService {
 
 	@Override
 	public Item save(Item item) throws BusinessException {
-		// TODO Auto-generated method stub
-		return null;
+		LOGGER.debug("Guardamos el item con el id: " + item.getId());
+		
+		if(item.getId() == null) {
+			return itemRepository.save(item);
+		}
+		throw new BusinessException("No se puede crear un item con un id especifico");
 	}
 
 	@Override
 	public Item update(Item item) throws BusinessException {
-		// TODO Auto-generated method stub
-		return null;
+		LOGGER.debug("Modificamos el item con el id: " + item.getId());
+		
+		if(item.getId() != null) {
+			return itemRepository.save(item);
+		}
+		throw new BusinessException("No se puede modificar un item no creado");
 	}
 
 	@Override
@@ -51,8 +60,13 @@ public class ItemServiceImpl implements ItemService {
 
 	@Override
 	public Item findById(Long id) throws BusinessException {
-		// TODO Auto-generated method stub
-		return null;
+		LOGGER.debug("Listado de el item por id");
+		
+		Optional<Item> itemOptional = itemRepository.findById(id);
+		if(itemOptional.isPresent()) {
+			return itemOptional.get();
+		}
+		throw new BusinessException("No se encontro el item con id: " + id);
 	}
 
 	@Override
