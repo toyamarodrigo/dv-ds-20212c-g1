@@ -23,8 +23,6 @@ public interface VentaService {
 
 	public VentaTarjeta save(VentaTarjeta ventaTarjeta, Item item) throws BusinessException;
 
-	Venta update(Venta venta) throws BusinessException;
-
 	void delete(Venta venta);
 
 	void delete(Long id);
