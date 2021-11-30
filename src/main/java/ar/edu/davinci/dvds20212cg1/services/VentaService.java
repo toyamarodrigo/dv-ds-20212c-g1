@@ -11,6 +11,7 @@ import ar.edu.davinci.dvds20212cg1.domain.VentaEfectivo;
 import ar.edu.davinci.dvds20212cg1.domain.VentaTarjeta;
 import exception.BusinessException;
 
+
 public interface VentaService {
 
 	// Metodos de creacion de una venta en Efectivo

@@ -37,8 +37,11 @@ public class VentaServiceImpl implements VentaService {
 
 	@Autowired
 	public VentaServiceImpl(final VentaRepository ventaRepository,
-			final VentaEfectivoRepository ventaEfectivoRepository, final VentaTarjetaRepository ventaTarjetaRepository,
-			final ClienteService clienteService, final PrendaService prendaService, final ItemService itemService) {
+			final VentaEfectivoRepository ventaEfectivoRepository, 
+			final VentaTarjetaRepository ventaTarjetaRepository,
+			final ClienteService clienteService,
+			final ItemService itemService,
+			final PrendaService prendaService) {
 		this.ventaEfectivoRepository = ventaEfectivoRepository;
 		this.ventaRepository = ventaRepository;
 		this.ventaTarjetaRepository = ventaTarjetaRepository;

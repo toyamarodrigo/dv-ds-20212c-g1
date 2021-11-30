@@ -8,11 +8,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 
 import ar.edu.davinci.dvds20212cg1.domain.Item;
 import ar.edu.davinci.dvds20212cg1.repository.ItemRepository;
 import exception.BusinessException;
 
+@Service
 public class ItemServiceImpl implements ItemService {
 
 	private final Logger LOGGER = LoggerFactory.getLogger(ItemServiceImpl.class);
