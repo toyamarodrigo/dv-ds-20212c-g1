@@ -21,11 +21,13 @@ import ar.edu.davinci.dvds20212cg1.controller.request.VentaEfectivoRequest;
 import ar.edu.davinci.dvds20212cg1.controller.request.VentaTarjetaRequest;
 import ar.edu.davinci.dvds20212cg1.controller.response.ClienteResponse;
 import ar.edu.davinci.dvds20212cg1.controller.response.ItemResponse;
+import ar.edu.davinci.dvds20212cg1.controller.response.NegocioResponse;
 import ar.edu.davinci.dvds20212cg1.controller.response.PrendaResponse;
 import ar.edu.davinci.dvds20212cg1.controller.response.VentaEfectivoResponse;
 import ar.edu.davinci.dvds20212cg1.controller.response.VentaTarjetaResponse;
 import ar.edu.davinci.dvds20212cg1.domain.Cliente;
 import ar.edu.davinci.dvds20212cg1.domain.Item;
+import ar.edu.davinci.dvds20212cg1.domain.Negocio;
 import ar.edu.davinci.dvds20212cg1.domain.Prenda;
 import ar.edu.davinci.dvds20212cg1.domain.VentaEfectivo;
 import ar.edu.davinci.dvds20212cg1.domain.VentaTarjeta;
@@ -71,6 +73,9 @@ public class OrikaConfiguration {
 		mapperFactory.classMap(Cliente.class, ClienteInsertRequest.class).byDefault().register();
 		mapperFactory.classMap(Cliente.class, ClienteUpdateRequest.class).byDefault().register();
 		mapperFactory.classMap(Cliente.class, ClienteResponse.class).byDefault().register();
+		
+		// NEGOCIO 
+		mapperFactory.classMap(Negocio.class, NegocioResponse.class).byDefault().register();
 
 		// ITEM
 		mapperFactory.classMap(ItemInsertRequest.class, Item.class)
