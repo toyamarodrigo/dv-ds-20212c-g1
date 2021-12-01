@@ -37,6 +37,15 @@ DROP TABLE IF EXISTS clientes;
 -- Table structure for table clientes
 --
 
+DROP TABLE IF EXISTS negocios;
+
+create table negocios (
+	ngc_id bigint NOT NULL auto_increment,
+	ngc_sucursal varchar(255) DEFAULT null,
+	ngc_fecha datetime(6) DEFAULT null,
+	primary key (ngc_id)
+);
+
 CREATE TABLE clientes (
   cli_id bigint NOT NULL AUTO_INCREMENT,
   cli_apellido varchar(255) DEFAULT NULL,
@@ -65,9 +74,12 @@ CREATE TABLE ventas (
   tipo_venta varchar(31) NOT NULL,
   vta_fecha datetime(6) DEFAULT NULL,
   vta_cli_id bigint DEFAULT NULL,
+  vta_ngc_id bigint DEFAULT NULL,
   PRIMARY KEY (vta_id),
   KEY vta_cli_fk (vta_cli_id),
-  CONSTRAINT vta_cli_fk FOREIGN KEY (vta_cli_id) REFERENCES clientes (cli_id)
+  CONSTRAINT vta_cli_fk FOREIGN KEY (vta_cli_id) REFERENCES clientes (cli_id),
+  KEY vta_ngc_fk (vta_ngc_id),
+  CONSTRAINT vta_ngc_fk FOREIGN KEY (vta_ngc_id) REFERENCES negocios (ngc_id)
 );
 
 

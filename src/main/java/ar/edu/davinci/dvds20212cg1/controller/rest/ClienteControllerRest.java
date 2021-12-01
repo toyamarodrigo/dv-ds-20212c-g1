@@ -110,17 +110,24 @@ public class ClienteControllerRest extends TiendaAppRest {
 	 * @return un cliente nuevo
 	 */
 	@PostMapping(path = "/clientes")
-	public ResponseEntity<ClienteResponse> createCliente (@RequestBody ClienteInsertRequest datosCliente) {
+	public ResponseEntity<ClienteResponse> createCliente(@RequestBody ClienteInsertRequest datosCliente) {
 		Cliente cliente = null;
 		ClienteResponse clienteResponse = null;
 		
-		// Guardar cliente
+		// Convertir ClienteInsertRequest en Cliente
 		try {
 			cliente = mapper.map(datosCliente, Cliente.class);
 		} catch (Exception e) {
 			LOGGER.error(e.getMessage());
 			e.printStackTrace();
 		}
+		
+		// Guardar el nuevo Cliente
+        try {
+            cliente = service.save(cliente);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.EXPECTATION_FAILED);
+        }
 		
 		// Convertir en Cliente Response
 		try {

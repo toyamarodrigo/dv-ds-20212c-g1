@@ -2,7 +2,6 @@ package ar.edu.davinci.dvds20212cg1.controller.request;
 
 import java.math.BigDecimal;
 
-import ar.edu.davinci.dvds20212cg1.domain.TipoPrenda;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

@@ -8,10 +8,6 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class VentaEfectivoResponse {
-	private Long id;
-	private ClienteResponse cliente;
-	private String fecha;
-	private List<ItemResponse> items;
-	private BigDecimal importeFinal;
+public class VentaEfectivoResponse extends VentaResponse {
+
 }

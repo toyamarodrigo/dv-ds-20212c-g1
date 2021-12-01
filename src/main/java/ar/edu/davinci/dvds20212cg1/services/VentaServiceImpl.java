@@ -37,11 +37,8 @@ public class VentaServiceImpl implements VentaService {
 
 	@Autowired
 	public VentaServiceImpl(final VentaRepository ventaRepository,
-			final VentaEfectivoRepository ventaEfectivoRepository, 
-			final VentaTarjetaRepository ventaTarjetaRepository,
-			final ClienteService clienteService,
-			final ItemService itemService,
-			final PrendaService prendaService) {
+			final VentaEfectivoRepository ventaEfectivoRepository, final VentaTarjetaRepository ventaTarjetaRepository,
+			final ClienteService clienteService, final ItemService itemService, final PrendaService prendaService) {
 		this.ventaEfectivoRepository = ventaEfectivoRepository;
 		this.ventaRepository = ventaRepository;
 		this.ventaTarjetaRepository = ventaTarjetaRepository;
@@ -207,8 +204,13 @@ public class VentaServiceImpl implements VentaService {
 
 	@Override
 	public Venta deleteItem(Long ventaId, Long itemId) throws BusinessException {
-		// TODO Auto-generated method stub
-		return null;
+		Venta venta = getVenta(ventaId);
+		Item actualItem = getItem(itemId);
+		itemService.delete(itemId);
+		venta.getItems().remove(actualItem);
+		ventaRepository.save(venta);
+
+		return venta;
 	}
 
 }

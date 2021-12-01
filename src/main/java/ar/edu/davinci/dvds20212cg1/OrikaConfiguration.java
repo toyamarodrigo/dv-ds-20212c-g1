@@ -1,9 +1,10 @@
 package ar.edu.davinci.dvds20212cg1;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Date;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +16,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import ar.edu.davinci.dvds20212cg1.controller.request.ClienteInsertRequest;
 import ar.edu.davinci.dvds20212cg1.controller.request.ClienteUpdateRequest;
 import ar.edu.davinci.dvds20212cg1.controller.request.ItemInsertRequest;
+import ar.edu.davinci.dvds20212cg1.controller.request.NegocioInsertRequest;
 import ar.edu.davinci.dvds20212cg1.controller.request.PrendaInsertRequest;
 import ar.edu.davinci.dvds20212cg1.controller.request.PrendaUpdateRequest;
 import ar.edu.davinci.dvds20212cg1.controller.request.VentaEfectivoRequest;
@@ -24,11 +26,13 @@ import ar.edu.davinci.dvds20212cg1.controller.response.ItemResponse;
 import ar.edu.davinci.dvds20212cg1.controller.response.NegocioResponse;
 import ar.edu.davinci.dvds20212cg1.controller.response.PrendaResponse;
 import ar.edu.davinci.dvds20212cg1.controller.response.VentaEfectivoResponse;
+import ar.edu.davinci.dvds20212cg1.controller.response.VentaResponse;
 import ar.edu.davinci.dvds20212cg1.controller.response.VentaTarjetaResponse;
 import ar.edu.davinci.dvds20212cg1.domain.Cliente;
 import ar.edu.davinci.dvds20212cg1.domain.Item;
 import ar.edu.davinci.dvds20212cg1.domain.Negocio;
 import ar.edu.davinci.dvds20212cg1.domain.Prenda;
+import ar.edu.davinci.dvds20212cg1.domain.Venta;
 import ar.edu.davinci.dvds20212cg1.domain.VentaEfectivo;
 import ar.edu.davinci.dvds20212cg1.domain.VentaTarjeta;
 import ma.glasnost.orika.CustomMapper;
@@ -73,9 +77,64 @@ public class OrikaConfiguration {
 		mapperFactory.classMap(Cliente.class, ClienteInsertRequest.class).byDefault().register();
 		mapperFactory.classMap(Cliente.class, ClienteUpdateRequest.class).byDefault().register();
 		mapperFactory.classMap(Cliente.class, ClienteResponse.class).byDefault().register();
-		
-		// NEGOCIO 
+
+		// NEGOCIO
+		mapperFactory.classMap(NegocioInsertRequest.class, Negocio.class)
+				.customize(new CustomMapper<NegocioInsertRequest, Negocio>() {
+					public void mapAtoB(final NegocioInsertRequest negocioInsertRequest, final Negocio negocio,
+							final MappingContext context) {
+						LOGGER.info("#### Custom mapping for NegocioInsertRequest --> Negocio ####");
+
+						DateFormat formatearFecha = new SimpleDateFormat(Constantes.FORMATO_FECHA);
+						Date date = null;
+
+						try {
+							date = formatearFecha.parse(negocioInsertRequest.getFecha());
+						} catch (ParseException e) {
+							LOGGER.error("Fecha invalida");
+							e.printStackTrace();
+						}
+
+						negocio.setSucursal(negocioInsertRequest.getSucursal());
+						negocio.setFecha(date);
+					}
+				}).register();
+
 		mapperFactory.classMap(Negocio.class, NegocioResponse.class).byDefault().register();
+		
+// TODO: Ver como va a ser respuesta de Negocio
+//		mapperFactory.classMap(Negocio.class, NegocioResponse.class)
+//				.customize(new CustomMapper<Negocio, NegocioResponse>() {
+//					public void mapAtoB(final Negocio negocio, final NegocioResponse negocioResponse,
+//							final MappingContext context) {
+//						LOGGER.info("#### Custom mapping for Negocio --> NegocioResponse ####");
+//
+//						negocioResponse.setId(negocio.getId());
+//						DateFormat formatearFecha = new SimpleDateFormat(Constantes.FORMATO_FECHA);
+//						String fechaStr = formatearFecha.format(negocio.getFecha());
+//						negocioResponse.setFecha(fechaStr);
+//						negocioResponse.setSucursal(negocio.getSucursal());
+//						
+//						negocioResponse.setVentas(new ArrayList<VentaResponse>());
+//						
+//						LOGGER.info("#### ANTES FOR ####");
+//						for (Venta venta : negocio.getVentas()) {
+//
+//							ClienteResponse clienteResponse = ClienteResponse.builder()
+//									.id(venta.getCliente().getId())
+//									.nombre(venta.getCliente().getNombre())
+//									.apellido(venta.getCliente().getApellido())
+//									.build();
+//
+//							VentaResponse ventaResponse = VentaResponse.builder()
+//									.id(venta.getId()).fecha(venta.getFormatoFecha())
+//									.importeFinal(negocio.calcularGananciaPorDia(negocio.getFecha()))
+//									.cliente(clienteResponse).build();
+//							
+//							negocioResponse.getVentas().add(ventaResponse);
+//						}
+//					}
+//				}).register();
 
 		// ITEM
 		mapperFactory.classMap(ItemInsertRequest.class, Item.class)
@@ -101,8 +160,8 @@ public class OrikaConfiguration {
 
 				itemResponse.setId(item.getId());
 				itemResponse.setCantidad(item.getCantidad());
-				itemResponse.setImporte(item.importe());
 				itemResponse.setPrenda(prendaResponse);
+				itemResponse.setImporte(item.importe());
 			}
 		}).register();
 
@@ -197,10 +256,10 @@ public class OrikaConfiguration {
 							ItemResponse itemResponse = ItemResponse.builder().id(item.getId())
 									.cantidad(item.getCantidad()).prenda(prendaResponse).importe(item.importe())
 									.build();
-							
+
 							ventaTarjetaResponse.getItems().add(itemResponse);
 						}
-						
+
 						ventaTarjetaResponse.setCantidadCuotas(venta.getCantidadCuotas());
 						ventaTarjetaResponse.setCoeficienteTarjeta(venta.getCoeficienteTarjeta());
 					}

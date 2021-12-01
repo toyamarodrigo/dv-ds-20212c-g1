@@ -1,6 +1,7 @@
 package ar.edu.davinci.dvds20212cg1.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,14 +28,21 @@ public class ClienteServiceImpl implements ClienteService {
 
 	@Override
 	public Cliente save(Cliente cliente) throws BusinessException {
-		// TODO Auto-generated method stub
-		return null;
+		LOGGER.debug("Guardamos el cliente: " + cliente.toString());
+        if (cliente.getId() == null) {
+            return clienteRepository.save(cliente);
+        }
+        throw new BusinessException("No se puede crear el cliente con un id específico.");
 	}
 
 	@Override
 	public Cliente update(Cliente cliente) throws BusinessException {
-		// TODO Auto-generated method stub
-		return null;
+		LOGGER.debug("Modificamos el cliente: " + cliente.toString());
+        if (cliente.getId() != null) {
+            return clienteRepository.save(cliente);
+        }
+        throw new BusinessException("No se puede modificar un cliente que aún no fue creado.");
+
 	}
 
 	@Override
@@ -51,8 +59,12 @@ public class ClienteServiceImpl implements ClienteService {
 
 	@Override
 	public Cliente findById(Long id) throws BusinessException {
-		// TODO Auto-generated method stub
-		return null;
+		LOGGER.debug("Buscamos al cliente por id: " + id);
+        Optional<Cliente> clienteOptional = clienteRepository.findById(id);
+        if (clienteOptional.isPresent()) {
+            return clienteOptional.get();
+        }
+        throw new BusinessException("No se encontró el cliente con el id: " + id);
 	}
 
 	@Override

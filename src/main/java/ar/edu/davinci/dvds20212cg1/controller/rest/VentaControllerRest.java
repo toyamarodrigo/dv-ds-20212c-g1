@@ -110,6 +110,37 @@ public class VentaControllerRest extends TiendaAppRest {
 	}
 
 	/*
+	 * Guardar venta en efectivo
+	 * 
+	 * @param datosVenta datos para una venta nueva
+	 * 
+	 * @return una venta nueva
+	 */
+	@PostMapping(path = "/ventas/efectivo")
+	public ResponseEntity<VentaResponse> createVenta(@RequestBody VentaEfectivoRequest datosVenta) {
+		VentaResponse ventaResponse = null;
+
+		VentaEfectivo venta = mapper.map(datosVenta, VentaEfectivo.class);
+
+		return guardarVenta(venta, ventaResponse);
+	}
+
+	/*
+	 * Guardar venta con tarjeta
+	 * 
+	 * @param datosVenta datos para una nueva venta
+	 * 
+	 * @return una venta nueva
+	 */
+	@PostMapping(path = "/ventas/tarjeta")
+	public ResponseEntity<VentaResponse> createVenta(@RequestBody VentaTarjetaRequest datosVenta) {
+		VentaResponse ventaResponse = null;
+		VentaTarjeta venta = mapper.map(datosVenta, VentaTarjeta.class);
+
+		return guardarVenta(venta, ventaResponse);
+	}
+
+	/*
 	 * Guardar una Venta
 	 * 
 	 * @param venta
@@ -166,37 +197,6 @@ public class VentaControllerRest extends TiendaAppRest {
 	}
 
 	/*
-	 * Guardar venta en efectivo
-	 * 
-	 * @param datosVenta datos para una venta nueva
-	 * 
-	 * @return una venta nueva
-	 */
-	@PostMapping(path = "/ventas/efectivo")
-	public ResponseEntity<VentaResponse> createVenta(@RequestBody VentaEfectivoRequest datosVenta) {
-		VentaResponse ventaResponse = null;
-
-		VentaEfectivo venta = mapper.map(datosVenta, VentaEfectivo.class);
-
-		return guardarVenta(venta, ventaResponse);
-	}
-
-	/*
-	 * Guardar venta con tarjeta
-	 * 
-	 * @param datosVenta datos para una nueva venta
-	 * 
-	 * @return una venta nueva
-	 */
-	@PostMapping(path = "/ventas/tarjeta")
-	public ResponseEntity<VentaResponse> createVenta(@RequestBody VentaTarjetaRequest datosVenta) {
-		VentaResponse ventaResponse = null;
-		VentaTarjeta venta = mapper.map(datosVenta, VentaTarjeta.class);
-
-		return guardarVenta(venta, ventaResponse);
-	}
-
-	/*
 	 * Guardar nuevo item a la venta
 	 * 
 	 * @param ventaId identificador de venta
@@ -206,7 +206,7 @@ public class VentaControllerRest extends TiendaAppRest {
 	 * @return venta modificada
 	 */
 	@PostMapping(path = "/ventas/{ventaId}/items")
-	public ResponseEntity<VentaResponse> createItem(@PathVariable("ventaId") long ventaId,
+	public ResponseEntity<VentaResponse> createItem(@PathVariable("ventaId") Long ventaId,
 			@RequestBody ItemInsertRequest datosItem) {
 
 		VentaResponse ventaResponse = null;
@@ -299,23 +299,26 @@ public class VentaControllerRest extends TiendaAppRest {
 	 * Borrado de item de venta
 	 * 
 	 * @param ventaId identificador de venta
+	 * 
 	 * @param itemId identificador de item
+	 * 
 	 * @return
 	 */
 	@DeleteMapping("/ventas/{ventaId}/items/{itemId}")
-	public ResponseEntity<VentaResponse> deleteCliente(@PathVariable("ventaId") long ventaId, @PathVariable("itemId") long itemId){
+	public ResponseEntity<VentaResponse> deleteCliente(@PathVariable("ventaId") long ventaId,
+			@PathVariable("itemId") long itemId) {
 		VentaResponse ventaResponse = null;
 		Venta venta = null;
-		
+
 		try {
 			venta = ventaService.deleteItem(ventaId, itemId);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.EXPECTATION_FAILED);
 		}
-		
+
 		// Convertir Venta en VentaResponse
 		try {
-			if(venta instanceof VentaEfectivo) {
+			if (venta instanceof VentaEfectivo) {
 				ventaResponse = mapper.map((VentaEfectivo) venta, VentaResponse.class);
 			} else if (venta instanceof VentaTarjeta) {
 				ventaResponse = mapper.map((VentaTarjeta) venta, VentaResponse.class);
@@ -324,8 +327,8 @@ public class VentaControllerRest extends TiendaAppRest {
 			LOGGER.error(e.getMessage());
 			e.printStackTrace();
 		}
-		
+
 		return new ResponseEntity<>(ventaResponse, HttpStatus.OK);
 	}
-	
+
 }

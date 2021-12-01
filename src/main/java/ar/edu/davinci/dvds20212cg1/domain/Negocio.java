@@ -1,21 +1,21 @@
 package ar.edu.davinci.dvds20212cg1.domain;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -28,18 +28,27 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "negocios")
-@Inheritance(strategy = InheritanceType.JOINED)
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Negocio {
+public class Negocio implements Serializable {
+
+	private static final long serialVersionUID = 9112683896901479466L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
 	@GenericGenerator(name = "native", strategy = "native")
 	@Column(name = "ngc_id")
 	private Long id;
+	
+	@Column(name = "ngc_sucursal")
+	private String sucursal;
+	
+	@Column(name = "ngc_fecha")
+	@Temporal(TemporalType.DATE)
+	private Date fecha;
 	
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "negocio", cascade = CascadeType.PERSIST, orphanRemoval = true)
 	@JsonManagedReference

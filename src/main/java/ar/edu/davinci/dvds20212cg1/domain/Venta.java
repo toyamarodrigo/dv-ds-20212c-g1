@@ -1,6 +1,5 @@
 package ar.edu.davinci.dvds20212cg1.domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -51,9 +50,8 @@ public abstract class Venta implements Serializable  {
 	@JsonManagedReference
 	private List<Item> items;
 	
-	@ManyToOne
-	@JoinColumn(name = "vta_ngc_id", referencedColumnName = "ngc_id", nullable = false)
-	@JsonBackReference
+	@ManyToOne(targetEntity = Negocio.class, cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	@JoinColumn(name = "vta_ngc_id", referencedColumnName = "ngc_id")
 	private Negocio negocio;
 
 	public abstract Double conRecargo(Double importeBase);

@@ -10,12 +10,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class VentaTarjetaResponse {
-	private Long id;
-	private ClienteResponse cliente;
-	private String fecha;
-	private BigDecimal importeFinal;
-	private List<ItemResponse> items;
+public class VentaTarjetaResponse extends VentaResponse {
 	private Integer cantidadCuotas;
 	private BigDecimal coeficienteTarjeta;
 }
