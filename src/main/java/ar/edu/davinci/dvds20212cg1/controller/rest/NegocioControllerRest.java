@@ -78,6 +78,35 @@ public class NegocioControllerRest extends TiendaAppRest {
 	}
 	
 	/*
+	 * Listar Negocio por Id
+	 */
+	@GetMapping(path = "negocio/{sucursalId}")
+	public ResponseEntity<Object> getNegocio(@PathVariable Long sucursalId) {
+		LOGGER.info("Lista negocio con id: " + sucursalId);
+		
+		NegocioResponse negocioResponse = null;
+		Negocio negocio = null;
+		try {
+			negocio = negocioService.findById(sucursalId);
+		} catch (BusinessException e) {
+			LOGGER.error(e.getMessage());
+			e.printStackTrace();
+			return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
+			e.printStackTrace();
+		}
+		
+		try {
+			negocioResponse = mapper.map(negocio, NegocioResponse.class);
+		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
+			e.printStackTrace();
+		}
+		return new ResponseEntity<>(negocioResponse, HttpStatus.OK);
+	}
+	
+	/*
 	 * Guardar nuevo negocio
 	 * 
 	 * @param datosNegocio son los datos para un nuevo negocio

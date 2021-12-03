@@ -77,6 +77,9 @@ public class ClienteControllerRest extends TiendaAppRest {
 		return new ResponseEntity<>(clienteResponse, HttpStatus.OK);
 	}
 	
+	/*
+	 * Listar cliente por id
+	 */
 	@GetMapping(path = "clientes/{id}")
 	public ResponseEntity<Object> getCliente(@PathVariable Long id) {
 		LOGGER.info("Lista cliente con id: " + id);
