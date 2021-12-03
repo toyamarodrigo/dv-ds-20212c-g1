@@ -99,53 +99,10 @@ dv-ds-20212c-g1$ mvn spring-boot:run
 
 ## Endpoints
 
-`GET todas las prendas`
+`Swagger UI`
 
-**http://localhost:8090/tienda/api/prendas/all**
+**http://localhost:8090/swagger-ui.html**
 
----
-
-`GET prenda por id`
-
-**http://localhost:8090/tienda/api/prendas/{id}**
-
----
-
-`POST agregar prenda`
-
-**http://localhost:8090/tienda/api/prendas**
-
-```json
-// Body ex.
-{
-  "descripcion": "una descripcion",
-  "tipo": "CAMISA",
-  "precioBase": 12.34
-}
-```
-
----
-
-`PUT modificar prenda por id`
-
-**http://localhost:8090/tienda/api/prendas/{id}**
-
-```json
-// Body ex.
-{
-  "descripcion": "otra descripcion",
-  "tipo": "TAPADO",
-  "precioBase": 34.56
-}
-```
-
----
-
-`DELETE borrar prenda por id`
-
-**http://localhost:8090/tienda/api/prendas/{id}**
-
----
 
 ### Diagrama de Clases
 
