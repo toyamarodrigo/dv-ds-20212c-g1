@@ -46,7 +46,7 @@ public abstract class Venta implements Serializable  {
 	@Temporal(TemporalType.DATE)
 	private Date fecha;
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "venta", cascade = CascadeType.PERSIST, orphanRemoval = true)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "venta", cascade = CascadeType.PERSIST, orphanRemoval = true)
 	@JsonManagedReference
 	private List<Item> items;
 	

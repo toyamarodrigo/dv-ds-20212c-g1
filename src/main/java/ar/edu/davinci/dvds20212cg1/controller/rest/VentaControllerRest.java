@@ -110,7 +110,7 @@ public class VentaControllerRest extends TiendaAppRest {
 	}
 
 	/*
-	 * Guardar venta en efectivo
+	 * Crear venta en efectivo
 	 * 
 	 * @param datosVenta datos para una venta nueva
 	 * 
@@ -119,14 +119,14 @@ public class VentaControllerRest extends TiendaAppRest {
 	@PostMapping(path = "/ventas/efectivo")
 	public ResponseEntity<VentaResponse> createVenta(@RequestBody VentaEfectivoRequest datosVenta) {
 		VentaResponse ventaResponse = null;
-
+		
 		VentaEfectivo venta = mapper.map(datosVenta, VentaEfectivo.class);
 
 		return guardarVenta(venta, ventaResponse);
 	}
 
 	/*
-	 * Guardar venta con tarjeta
+	 * Crear venta con tarjeta
 	 * 
 	 * @param datosVenta datos para una nueva venta
 	 * 
@@ -141,7 +141,7 @@ public class VentaControllerRest extends TiendaAppRest {
 	}
 
 	/*
-	 * Guardar una Venta
+	 * Guardar una Venta Ejectivo
 	 * 
 	 * @param venta
 	 * 
@@ -169,7 +169,7 @@ public class VentaControllerRest extends TiendaAppRest {
 	}
 
 	/*
-	 * Guardar una Venta
+	 * Guardar una Venta Tarjeta
 	 * 
 	 * @param venta
 	 * 
@@ -182,6 +182,8 @@ public class VentaControllerRest extends TiendaAppRest {
 		try {
 			venta = ventaService.save(venta);
 		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
+			e.printStackTrace();
 			return new ResponseEntity<>(null, HttpStatus.EXPECTATION_FAILED);
 		}
 
@@ -209,8 +211,9 @@ public class VentaControllerRest extends TiendaAppRest {
 	public ResponseEntity<VentaResponse> createItem(@PathVariable("ventaId") Long ventaId,
 			@RequestBody ItemInsertRequest datosItem) {
 
+		LOGGER.info("Guardar item a la venta con id: " + ventaId);
+		
 		VentaResponse ventaResponse = null;
-
 		Item item = null;
 
 		try {
@@ -254,9 +257,9 @@ public class VentaControllerRest extends TiendaAppRest {
 	 * 
 	 * @return venta modificada
 	 */
-	@PutMapping(path = "/ventas/{ventasId}/items/{itemId}")
-	public ResponseEntity<VentaResponse> modifyItem(@PathVariable("ventaId") long ventaId,
-			@PathVariable("itemId") long itemId, @RequestBody ItemUpdateRequest datosItem) {
+	@PutMapping(path = "/ventas/{ventaId}/items/{itemId}")
+	public ResponseEntity<VentaResponse> modifyItem(@PathVariable("ventaId") Long ventaId,
+			@PathVariable("itemId") Long itemId, @RequestBody ItemUpdateRequest datosItem) {
 
 		VentaResponse ventaResponse = null;
 
@@ -305,8 +308,8 @@ public class VentaControllerRest extends TiendaAppRest {
 	 * @return
 	 */
 	@DeleteMapping("/ventas/{ventaId}/items/{itemId}")
-	public ResponseEntity<VentaResponse> deleteCliente(@PathVariable("ventaId") long ventaId,
-			@PathVariable("itemId") long itemId) {
+	public ResponseEntity<VentaResponse> deleteCliente(@PathVariable("ventaId") Long ventaId,
+			@PathVariable("itemId") Long itemId) {
 		VentaResponse ventaResponse = null;
 		Venta venta = null;
 

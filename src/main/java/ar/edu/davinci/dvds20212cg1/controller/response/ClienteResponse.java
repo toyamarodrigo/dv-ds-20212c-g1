@@ -1,6 +1,5 @@
 package ar.edu.davinci.dvds20212cg1.controller.response;
 
-import ar.edu.davinci.dvds20212cg1.controller.request.ClienteInsertRequest;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

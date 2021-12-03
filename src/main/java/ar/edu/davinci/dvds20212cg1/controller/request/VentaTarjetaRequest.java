@@ -11,5 +11,6 @@ import lombok.NoArgsConstructor;
 @Builder
 public class VentaTarjetaRequest {
 	private Long clienteId;
+	private Long sucursalId;
 	private Integer cantidadCuotas;
 }

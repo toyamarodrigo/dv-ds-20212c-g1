@@ -13,8 +13,6 @@ import lombok.NoArgsConstructor;
 @Builder
 public class PrendaInsertRequest {
 	private String descripcion;
-
 	private String tipo;
-
 	private BigDecimal precioBase;
 }

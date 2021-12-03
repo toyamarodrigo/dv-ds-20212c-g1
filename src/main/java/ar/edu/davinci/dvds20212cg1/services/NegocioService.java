@@ -11,6 +11,15 @@ import exception.BusinessException;
 public interface NegocioService {
 	// Metodos de creacion
 	Negocio save(Negocio negocio) throws BusinessException;
+	
+	Negocio update(Negocio negocio) throws BusinessException;
+	
+	void delete(Negocio negocio);
+	
+	void delete(Long id);
+	
+	// Metodos de busqueda
+	Negocio findById(Long id) throws BusinessException;
 
 	// Metodos de listado
 	List<Negocio> list();

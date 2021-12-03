@@ -14,12 +14,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -46,15 +44,15 @@ public class Negocio implements Serializable {
 	@Column(name = "ngc_sucursal")
 	private String sucursal;
 	
-	@Column(name = "ngc_fecha")
-	@Temporal(TemporalType.DATE)
-	private Date fecha;
-	
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "negocio", cascade = CascadeType.PERSIST, orphanRemoval = true)
-	@JsonManagedReference
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "negocio", cascade = CascadeType.PERSIST, orphanRemoval = true)
+	@JsonIgnore
 	private List<Venta> ventas;
 	
     public BigDecimal calcularGananciaPorDia(Date dia){
     	return ventas.stream().filter(venta -> venta.getFecha() == dia).map(Venta::importeFinal).reduce(BigDecimal::add).get();
+    }
+    
+    public BigDecimal calcularGananciaTotal() {
+    	return ventas.stream().map(Venta::importeFinal).reduce(BigDecimal::add).get();
     }
 }

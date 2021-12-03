@@ -10,6 +10,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class NegocioInsertRequest {
-	private String fecha;
 	private String sucursal;
 }

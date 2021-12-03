@@ -11,4 +11,5 @@ import lombok.NoArgsConstructor;
 @Builder
 public class VentaEfectivoRequest {
 	private Long clienteId;
+	private Long sucursalId;
 }

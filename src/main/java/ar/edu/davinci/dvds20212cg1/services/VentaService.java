@@ -38,7 +38,7 @@ public interface VentaService {
 
 	// Metodo de contador
 	long count();
-
+	
 	public Venta addItem(Long id, Item item) throws BusinessException;
 
 	public Venta updateItem(Long ventaId, Long itemId, Item item) throws BusinessException;

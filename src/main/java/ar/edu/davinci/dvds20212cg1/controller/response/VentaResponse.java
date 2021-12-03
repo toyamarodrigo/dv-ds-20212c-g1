@@ -18,4 +18,5 @@ public class VentaResponse {
 	private String fecha;
 	private List<ItemResponse> items;
 	private BigDecimal importeFinal;
+	private NegocioResponse negocio;
 }

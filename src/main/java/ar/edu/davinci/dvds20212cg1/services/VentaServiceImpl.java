@@ -1,5 +1,6 @@
 package ar.edu.davinci.dvds20212cg1.services;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import ar.edu.davinci.dvds20212cg1.domain.Cliente;
 import ar.edu.davinci.dvds20212cg1.domain.Item;
+import ar.edu.davinci.dvds20212cg1.domain.Negocio;
 import ar.edu.davinci.dvds20212cg1.domain.Prenda;
 import ar.edu.davinci.dvds20212cg1.domain.Venta;
 import ar.edu.davinci.dvds20212cg1.domain.VentaEfectivo;
@@ -34,17 +36,20 @@ public class VentaServiceImpl implements VentaService {
 	private final ClienteService clienteService;
 	private final PrendaService prendaService;
 	private final ItemService itemService;
+	private final NegocioService negocioService;
 
 	@Autowired
 	public VentaServiceImpl(final VentaRepository ventaRepository,
 			final VentaEfectivoRepository ventaEfectivoRepository, final VentaTarjetaRepository ventaTarjetaRepository,
-			final ClienteService clienteService, final ItemService itemService, final PrendaService prendaService) {
+			final ClienteService clienteService, final ItemService itemService, final PrendaService prendaService,
+			final NegocioService negocioService) {
 		this.ventaEfectivoRepository = ventaEfectivoRepository;
 		this.ventaRepository = ventaRepository;
 		this.ventaTarjetaRepository = ventaTarjetaRepository;
 		this.clienteService = clienteService;
 		this.prendaService = prendaService;
 		this.itemService = itemService;
+		this.negocioService = negocioService;
 	}
 
 	private Venta getVenta(Long ventaId) throws BusinessException {
@@ -62,6 +67,10 @@ public class VentaServiceImpl implements VentaService {
 		} else {
 			throw new BusinessException("La Prenda es obligatoria");
 		}
+	}
+
+	private Negocio getNegocio(Long id) throws BusinessException {
+		return negocioService.findById(id);
 	}
 
 	private List<Item> getItems(List<Item> requestItems) throws BusinessException {
@@ -87,18 +96,31 @@ public class VentaServiceImpl implements VentaService {
 	public VentaEfectivo save(VentaEfectivo venta) throws BusinessException {
 		LOGGER.debug("Guardado de Venta en Efectivo");
 		Cliente cliente = null;
+		Negocio negocio = null;
+		
+		List<Item> items = new ArrayList<Item>();
+		if (venta.getItems() != null) {
+			items = getItems(venta.getItems());
+		}
+
 		if (venta.getCliente().getId() != null) {
 			cliente = getCliente(venta.getCliente().getId());
 		} else {
 			throw new BusinessException("El cliente es obligatorio");
 		}
 
-		List<Item> items = new ArrayList<Item>();
-		if (venta.getItems() != null) {
-			items = getItems(venta.getItems());
+		if (venta.getNegocio().getId() != null) {
+			negocio = getNegocio(venta.getNegocio().getId());
+		} else {
+			throw new BusinessException("El negocio es obligatorio");
 		}
-
-		venta = VentaEfectivo.builder().cliente(cliente).fecha(Calendar.getInstance().getTime()).items(items).build();
+		
+		venta = VentaEfectivo.builder()
+				.cliente(cliente)
+				.fecha(Calendar.getInstance().getTime())
+				.items(items)
+				.negocio(negocio)
+				.build();
 
 		return ventaEfectivoRepository.save(venta);
 	}
@@ -114,10 +136,18 @@ public class VentaServiceImpl implements VentaService {
 	public VentaTarjeta save(VentaTarjeta venta) throws BusinessException {
 		LOGGER.debug("Guardado de Venta con Tarjeta");
 		Cliente cliente = null;
+		Negocio negocio = null;
+
 		if (venta.getCliente().getId() != null) {
 			cliente = getCliente(venta.getCliente().getId());
 		} else {
 			throw new BusinessException("El cliente es obligatorio");
+		}
+
+		if (venta.getNegocio().getId() != null) {
+			negocio = getNegocio(venta.getNegocio().getId());
+		} else {
+			throw new BusinessException("El negocio es obligatorio");
 		}
 
 		List<Item> items = new ArrayList<Item>();
@@ -125,7 +155,13 @@ public class VentaServiceImpl implements VentaService {
 			items = getItems(venta.getItems());
 		}
 
-		venta = VentaTarjeta.builder().cliente(cliente).fecha(Calendar.getInstance().getTime()).items(items).build();
+		venta = VentaTarjeta.builder()
+				.cliente(cliente)
+				.fecha(Calendar.getInstance().getTime())
+				.cantidadCuotas(venta.getCantidadCuotas())
+				.coeficienteTarjeta(new BigDecimal(0.01D))
+				.items(items)
+				.negocio(negocio).build();
 
 		return ventaTarjetaRepository.save(venta);
 	}
