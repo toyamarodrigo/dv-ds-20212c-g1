@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -47,12 +48,16 @@ public class Negocio implements Serializable {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "negocio", cascade = CascadeType.PERSIST, orphanRemoval = true)
 	@JsonIgnore
 	private List<Venta> ventas;
+
+//	@Column(name = "ngc_ganancia")
+//	@JsonIgnore
+//	private BigDecimal ganancia;
 	
-    public BigDecimal calcularGananciaPorDia(Date dia){
+    public BigDecimal calcularGananciaPorDia(Date dia) {
     	return ventas.stream().filter(venta -> venta.getFecha() == dia).map(Venta::importeFinal).reduce(BigDecimal::add).get();
     }
     
     public BigDecimal calcularGananciaTotal() {
-    	return ventas.stream().map(Venta::importeFinal).reduce(BigDecimal::add).get();
+    	return ventas.stream().filter(Objects::nonNull).map(Venta::importeFinal).reduce(BigDecimal::add).orElse(BigDecimal.ZERO);
     }
 }

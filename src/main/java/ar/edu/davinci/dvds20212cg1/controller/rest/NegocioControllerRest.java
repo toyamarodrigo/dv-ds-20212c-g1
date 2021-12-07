@@ -1,5 +1,9 @@
 package ar.edu.davinci.dvds20212cg1.controller.rest;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -15,8 +19,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import ar.edu.davinci.dvds20212cg1.Constantes;
 import ar.edu.davinci.dvds20212cg1.controller.TiendaAppRest;
 import ar.edu.davinci.dvds20212cg1.controller.request.ClienteUpdateRequest;
 import ar.edu.davinci.dvds20212cg1.controller.request.NegocioInsertRequest;
@@ -106,6 +112,27 @@ public class NegocioControllerRest extends TiendaAppRest {
 		return new ResponseEntity<>(negocioResponse, HttpStatus.OK);
 	}
 	
+
+//	@GetMapping(path = "negocio/{sucursalId}/total")
+//	public List<Negocio> getNegocioVentas(
+//		@PathVariable Long sucursalId, 
+//		@RequestParam(required = true, name = "fecha") String date) {
+//		LOGGER.info("Lista negocio con id: " + sucursalId);
+//		
+//		DateFormat formatearFecha = new SimpleDateFormat(Constantes.FORMATO_FECHA);
+//		Date fecha = null;
+//
+//		try {
+//			fecha = formatearFecha.parse(date);
+//		} catch (ParseException e) {
+//			LOGGER.error(e.getMessage());
+//			e.printStackTrace();
+//		}
+//		LOGGER.info("Ganancias de las ventas del dia");
+//
+//		return negocioService.calcularGananciaPorDia(fecha);
+//	}
+
 	/*
 	 * Guardar nuevo negocio
 	 * 

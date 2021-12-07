@@ -1,5 +1,6 @@
 package ar.edu.davinci.dvds20212cg1.services;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -25,4 +26,6 @@ public interface NegocioService {
 	List<Negocio> list();
 
 	Page<Negocio> list(Pageable pageable);
+
+//	List<Negocio> calcularGananciaPorDia(Date date);
 }

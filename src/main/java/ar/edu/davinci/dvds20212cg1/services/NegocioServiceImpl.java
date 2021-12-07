@@ -1,5 +1,7 @@
 package ar.edu.davinci.dvds20212cg1.services;
 
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import ar.edu.davinci.dvds20212cg1.domain.Negocio;
+import ar.edu.davinci.dvds20212cg1.domain.Venta;
 import ar.edu.davinci.dvds20212cg1.repository.NegocioRepository;
 import exception.BusinessException;
 
@@ -25,6 +28,10 @@ public class NegocioServiceImpl implements NegocioService {
 	public NegocioServiceImpl(final NegocioRepository negocioRepository) {
 		this.negocioRepository = negocioRepository;
 	}
+
+//	private List<Venta> listAllByDate(Date date, Negocio negocio) {
+//		return negocio.getVentas().stream().filter(v -> v.getFecha().equals(date)).collect(java.util.stream.Collectors.toList());
+//	}
 
 	@Override
 	public Negocio save(Negocio negocio) throws BusinessException {
@@ -77,4 +84,25 @@ public class NegocioServiceImpl implements NegocioService {
 		}
 		throw new BusinessException("No se encontró el negocio con el id: " + id);
 	}
+
+//	@Override
+//	public List<Negocio> calcularGananciaPorDia(Date date) {
+//
+//		List<Negocio> negocios = negocioRepository.findAll();
+//
+//		for(Negocio negocio : negocios) {
+//			List<Venta> ventas = listAllByDate(date, negocio);
+//			LOGGER.info("ventas" + ventas);
+//			BigDecimal ganancia = BigDecimal.ZERO;
+//			LOGGER.info("ganancia: " + ganancia.toString());
+//
+//			for(Venta venta : ventas) {
+//				LOGGER.info("importe: " + venta.importeBruto().toString());
+//				ganancia = ganancia.add(venta.importeFinal());
+//			}
+
+//			negocio.setGanancia(ganancia);
+//		}
+//		return negocios;
+//	}
 }
