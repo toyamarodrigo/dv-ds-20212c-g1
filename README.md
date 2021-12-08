@@ -6,6 +6,8 @@
 * **Marcos Rearte** - *Desarrollador*
 * **Toyama Rodrigo** - *Desarrollador*
 
+![Repo Frontend](https://github.com/toyamarodrigo/dv-ds-20212c-g1-front)
+
 ## Tienda Ropita - Enunciado
 
 Se require:
