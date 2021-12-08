@@ -18,6 +18,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -44,7 +45,7 @@ public class Negocio implements Serializable {
 	@Column(name = "ngc_sucursal")
 	private String sucursal;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "negocio", cascade = CascadeType.PERSIST, orphanRemoval = true)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "negocio", cascade = CascadeType.PERSIST, orphanRemoval = true   )
 	@JsonIgnore
 	private List<Venta> ventas;
 	
@@ -53,6 +54,10 @@ public class Negocio implements Serializable {
     }
     
     public BigDecimal calcularGananciaTotal() {
-    	return ventas.stream().map(Venta::importeFinal).reduce(BigDecimal::add).get();
-    }
+			if(ventas.stream().map(Venta::importeFinal).reduce(BigDecimal::add).isPresent()) {
+				return ventas.stream().map(Venta::importeFinal).reduce(BigDecimal::add).get();
+			} else {
+				return BigDecimal.ZERO;
+			}
+		};
 }

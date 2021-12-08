@@ -18,12 +18,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import ar.edu.davinci.dvds20212cg1.controller.TiendaAppRest;
-import ar.edu.davinci.dvds20212cg1.controller.request.ClienteUpdateRequest;
 import ar.edu.davinci.dvds20212cg1.controller.request.NegocioInsertRequest;
 import ar.edu.davinci.dvds20212cg1.controller.request.NegocioUpdateRequest;
-import ar.edu.davinci.dvds20212cg1.controller.response.ClienteResponse;
 import ar.edu.davinci.dvds20212cg1.controller.response.NegocioResponse;
-import ar.edu.davinci.dvds20212cg1.domain.Cliente;
 import ar.edu.davinci.dvds20212cg1.domain.Negocio;
 import ar.edu.davinci.dvds20212cg1.services.NegocioService;
 import exception.BusinessException;

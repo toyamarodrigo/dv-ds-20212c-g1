@@ -1,5 +1,6 @@
 package ar.edu.davinci.dvds20212cg1;
 
+import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -90,7 +91,7 @@ public class OrikaConfiguration {
 					public void mapAtoB(final Negocio negocio, final NegocioResponse negocioResponse,
 							final MappingContext context) {
 						LOGGER.info("#### Custom mapping for Negocio --> NegocioResponse ####");
-												
+						
 						negocioResponse.setId(negocio.getId());
 						negocioResponse.setSucursal(negocio.getSucursal());
 						negocioResponse.setImporteTotal(negocio.calcularGananciaTotal());
