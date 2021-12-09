@@ -2327,3 +2327,6 @@ java.sql.SQLSyntaxErrorException: Table 'dv-ds-20212c-g1.ventas_efectivos' doesn
 2021-12-09 01:48:00,167 DEBUG ar.edu.davinci.dvds20212cg1.services.NegocioServiceImpl [http-nio-8090-exec-9] ganancia0.00
 2021-12-09 01:48:00,168 DEBUG ar.edu.davinci.dvds20212cg1.services.NegocioServiceImpl [http-nio-8090-exec-9] Ventas[VentaTarjeta(cantidadCuotas=6, coeficienteTarjeta=0.01)]
 2021-12-09 01:48:00,168 DEBUG ar.edu.davinci.dvds20212cg1.services.NegocioServiceImpl [http-nio-8090-exec-9] Negocios[Negocio(id=1, sucursal=DV1, ventas=[VentaEfectivo()], ganancia=110.74), Negocio(id=2, sucursal=DV2, ventas=[VentaEfectivo()], ganancia=4220.81), Negocio(id=3, sucursal=DV3, ventas=[VentaTarjeta(cantidadCuotas=6, coeficienteTarjeta=0.01)], ganancia=0.00)]
+2021-12-09 01:52:41,088 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [SpringApplicationShutdownHook] Closing JPA EntityManagerFactory for persistence unit 'default'
+2021-12-09 01:52:41,097 INFO com.zaxxer.hikari.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown initiated...
+2021-12-09 01:52:41,139 INFO com.zaxxer.hikari.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown completed.
