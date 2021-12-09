@@ -48,6 +48,9 @@ public class Negocio implements Serializable {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "negocio", cascade = CascadeType.PERSIST, orphanRemoval = true   )
 	@JsonIgnore
 	private List<Venta> ventas;
+
+	@Column(name = "ngc_ganancia")
+	private BigDecimal ganancia;
 	
     public BigDecimal calcularGananciaPorDia(Date dia){
     	return ventas.stream().filter(venta -> venta.getFecha() == dia).map(Venta::importeFinal).reduce(BigDecimal::add).get();
