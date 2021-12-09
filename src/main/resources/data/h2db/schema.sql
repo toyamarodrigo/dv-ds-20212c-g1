@@ -15,19 +15,11 @@ DROP TABLE IF EXISTS clientes;
 create table negocios (
 	ngc_id bigint NOT NULL auto_increment,
 	ngc_sucursal varchar(255) DEFAULT null,
+	ngc_ganancia bigint default null,
 	primary key (ngc_id)
 );
 
-DROP TABLE IF EXISTS negocios;
-
-create table negocios (
-	ngc_id bigint NOT NULL auto_increment,
-	ngc_sucursal varchar(255) DEFAULT null,
-	ngc_fecha datetime(6) DEFAULT null,
-	primary key (ngc_id)
-);
-
-CREATE TABLE clientes (
+create TABLE clientes (
   cli_id bigint NOT NULL AUTO_INCREMENT,
   cli_apellido varchar(255) DEFAULT NULL,
   cli_nombre varchar(255) DEFAULT NULL,
@@ -37,7 +29,7 @@ CREATE TABLE clientes (
 create TABLE prendas (
   prd_id bigint NOT NULL AUTO_INCREMENT,
   prd_descripcion varchar(255) DEFAULT NULL,
-  prd_precio_base decimal(19,2) DEFAULT NULL,
+  prd_precio_base decimal(19,2) acDEFAULT NULL,
   prd_tipo_prenda varchar(255) DEFAULT NULL,
   PRIMARY KEY (prd_id)
 );
@@ -47,7 +39,7 @@ create TABLE ventas (
   tipo_venta varchar(31) NOT NULL,
   vta_fecha datetime(6) DEFAULT NULL,
   vta_cli_id bigint DEFAULT NULL,
-  vta_ngc_id bigint DEFAULT NULL,
+  vta_ngc_id bigint default null,
   PRIMARY KEY (vta_id),
   KEY vta_cli_fk (vta_cli_id),
   CONSTRAINT vta_cli_fk FOREIGN KEY (vta_cli_id) REFERENCES clientes (cli_id),
@@ -72,7 +64,6 @@ create TABLE ventas_efectivo (
   PRIMARY KEY (vta_id),
   CONSTRAINT vte_vta_fk FOREIGN KEY (vta_id) REFERENCES ventas (vta_id)
 );
-
 
 create TABLE ventas_tarjeta (
   vta_id bigint NOT NULL,
