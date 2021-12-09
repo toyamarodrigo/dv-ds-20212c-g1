@@ -27,5 +27,5 @@ public interface NegocioService {
 
 	Page<Negocio> list(Pageable pageable);
 
-//	List<Negocio> calcularGananciaPorDia(Date date);
+	List<Negocio> calcularGananciaPorDia(Date date);
 }

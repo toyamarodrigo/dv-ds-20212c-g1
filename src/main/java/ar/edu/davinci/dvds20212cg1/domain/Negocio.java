@@ -50,9 +50,8 @@ public class Negocio implements Serializable {
 	@JsonIgnore
 	private List<Venta> ventas;
 
-//	@Column(name = "ngc_ganancia")
-//	@JsonIgnore
-//	private BigDecimal ganancia;
+	@Column(name = "ngc_ganancia")
+	private BigDecimal ganancia;
 	
     public BigDecimal calcularGananciaPorDia(Date dia) {
     	return ventas.stream().filter(venta -> venta.getFecha() == dia).map(Venta::importeFinal).reduce(BigDecimal::add).get();
