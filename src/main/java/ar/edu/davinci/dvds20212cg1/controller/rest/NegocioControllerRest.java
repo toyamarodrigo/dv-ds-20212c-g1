@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -119,9 +120,18 @@ public class NegocioControllerRest extends TiendaAppRest {
 
 		DateFormat formatearFecha = new SimpleDateFormat(Constantes.FORMATO_FECHA);
 		Date fecha = null;
-
+		
+		List<Negocio> negocios = null;
+		
 		try {
 			fecha = formatearFecha.parse(date);
+		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
+			e.printStackTrace();
+		}
+		
+		try {
+			negocios = negocioService.calcularGananciaPorDia(fecha).stream().filter(n -> Objects.equals(n.getId(), sucursalId)).collect(Collectors.toList());
 		} catch (Exception e) {
 			LOGGER.error(e.getMessage());
 			e.printStackTrace();
@@ -129,7 +139,7 @@ public class NegocioControllerRest extends TiendaAppRest {
 
 		LOGGER.info("Ganancias de las ventas del dia");
 
-		return negocioService.calcularGananciaPorDia(fecha);
+		return negocios;
 	}
 
 	/*
