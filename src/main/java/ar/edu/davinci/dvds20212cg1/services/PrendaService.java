@@ -16,7 +16,7 @@ public interface PrendaService {
 	Prenda update(Prenda prenda) throws BusinessException;
 
 	void delete(Prenda prenda);
-	
+
 	void delete(Long id);
 
 	// Metodos de busqueda
@@ -24,6 +24,7 @@ public interface PrendaService {
 
 	// Metodos de listado
 	List<Prenda> list();
+
 	Page<Prenda> list(Pageable pageable);
 
 	// Metodo de contador

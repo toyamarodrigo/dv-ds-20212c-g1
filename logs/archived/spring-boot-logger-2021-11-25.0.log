@@ -1,0 +1,11 @@
+2021-11-25 00:12:17,462 INFO org.springframework.boot.admin.SpringApplicationAdminMXBeanRegistrar$SpringApplicationAdmin [RMI TCP Connection(97)-127.0.0.1] Application shutdown requested.
+2021-11-25 00:12:18,309 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [RMI TCP Connection(97)-127.0.0.1] Closing JPA EntityManagerFactory for persistence unit 'default'
+2021-11-25 00:12:18,311 INFO org.hibernate.tool.schema.internal.SchemaDropperImpl$DelayedDropActionImpl [RMI TCP Connection(97)-127.0.0.1] HHH000477: Starting delayed evictData of schema as part of SessionFactory shut-down'
+2021-11-25 00:12:48,321 WARN org.hibernate.engine.jdbc.spi.SqlExceptionHelper [RMI TCP Connection(97)-127.0.0.1] SQL Error: 0, SQLState: 08S01
+2021-11-25 00:12:48,322 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper [RMI TCP Connection(97)-127.0.0.1] HikariPool-1 - Connection is not available, request timed out after 30005ms.
+2021-11-25 00:12:48,322 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper [RMI TCP Connection(97)-127.0.0.1] Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+2021-11-25 00:12:48,340 WARN org.springframework.beans.factory.support.DisposableBeanAdapter [RMI TCP Connection(97)-127.0.0.1] Invocation of destroy method failed on bean with name 'entityManagerFactory': org.hibernate.exception.JDBCConnectionException: Unable to open JDBC Connection for DDL execution
+2021-11-25 00:12:48,343 INFO com.zaxxer.hikari.HikariDataSource [RMI TCP Connection(97)-127.0.0.1] HikariPool-1 - Shutdown initiated...
+2021-11-25 00:12:51,159 INFO com.zaxxer.hikari.HikariDataSource [RMI TCP Connection(97)-127.0.0.1] HikariPool-1 - Shutdown completed.

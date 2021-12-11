@@ -14,4 +14,5 @@ insert
 values (1, 'Rodri','Toyama'),
 (2, 'Marcelo','Lujan'),
 (3, 'Malena','Tango'),
-(4, 'Federico','Rere');
+(4, 'Federico','Rere')
+(5, 'Nat', 'Oli');

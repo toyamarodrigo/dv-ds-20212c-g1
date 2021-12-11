@@ -6,6 +6,8 @@ import java.util.Objects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -36,13 +38,45 @@ public class PrendaControllerRest extends TiendaAppRest {
 	@Autowired
 	private MapperFacade mapper;
 
-	// Listar todas las prendas
+	/**
+	 * Listar todas las prendas
+	 * 
+	 */
 	@GetMapping(path = "/prendas/all")
 	public List<Prenda> getList() {
 
 		LOGGER.info("Listado de todas las prendas");
 
 		return service.list();
+	}
+
+	/**
+	 * Listar todas las prendas paginadas
+	 * 
+	 */
+	@GetMapping(path = "/prendas")
+	public ResponseEntity<Page<PrendaResponse>> getList(Pageable pageable) {
+		LOGGER.info("listar todas las prendas paginadas");
+		LOGGER.info("Pageable: " + pageable);
+
+		Page<PrendaResponse> prendaResponse = null;
+		Page<Prenda> prendas = null;
+
+		try {
+			prendas = service.list(pageable);
+		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
+			e.printStackTrace();
+		}
+
+		try {
+			prendaResponse = prendas.map(prenda -> mapper.map(prenda, PrendaResponse.class));
+		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
+			e.printStackTrace();
+		}
+
+		return new ResponseEntity<>(prendaResponse, HttpStatus.OK);
 	}
 
 	/**
@@ -119,7 +153,7 @@ public class PrendaControllerRest extends TiendaAppRest {
 	/**
 	 * Modificar los datos de un prenda
 	 * 
-	 * @param id identificador de una prenda
+	 * @param id          identificador de una prenda
 	 * @param datosPrenda datos a modificar de la prenda
 	 * @return los datos de una prenda modificada
 	 */
@@ -138,9 +172,9 @@ public class PrendaControllerRest extends TiendaAppRest {
 			LOGGER.error(e.getMessage());
 			e.printStackTrace();
 		}
-		
+
 		try {
-			
+
 			prendaModifar = service.findById(id);
 
 		} catch (BusinessException e) {
@@ -184,11 +218,11 @@ public class PrendaControllerRest extends TiendaAppRest {
 		return new ResponseEntity<>(prendaResponse, HttpStatus.CREATED);
 	}
 
-	
 	/**
-	 * Borrado de la  prenda
+	 * Borrado de la prenda
+	 * 
 	 * @param id identificador de una prenda
-	 * @return 
+	 * @return
 	 */
 	@DeleteMapping("/prendas/{id}")
 	public ResponseEntity<HttpStatus> deletePrenda(@PathVariable("id") Long id) {

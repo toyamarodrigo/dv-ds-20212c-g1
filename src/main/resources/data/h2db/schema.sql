@@ -15,6 +15,7 @@ DROP TABLE IF EXISTS clientes;
 create table negocios (
 	ngc_id bigint NOT NULL auto_increment,
 	ngc_sucursal varchar(255) DEFAULT null,
+	ngc_ganancia bigint default null,
 	primary key (ngc_id)
 );
 
@@ -28,7 +29,7 @@ create TABLE clientes (
 create TABLE prendas (
   prd_id bigint NOT NULL AUTO_INCREMENT,
   prd_descripcion varchar(255) DEFAULT NULL,
-  prd_precio_base decimal(19,2) DEFAULT NULL,
+  prd_precio_base decimal(19,2) acDEFAULT NULL,
   prd_tipo_prenda varchar(255) DEFAULT NULL,
   PRIMARY KEY (prd_id)
 );
