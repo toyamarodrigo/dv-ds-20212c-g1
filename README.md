@@ -92,7 +92,8 @@ dv-ds-20212c-g1$ mvn clean install
 o en consola sobre el proyecto a la altura del `pom.xml`
 
 ```shell
-dv-ds-20212c-g1$ mvn spring-boot:run
+dv-ds-20212c-g1$ mvn clean install -DskipTests
+dv-ds-20212c-g1$ java -jar target/dv-ds-20212c-g1-0.0.1-SNAPSHOT.jar
 ```
 
 > estará deployado en <http://localhost:8090>
