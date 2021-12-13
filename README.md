@@ -36,6 +36,23 @@ saber las ganancias de un determinado día.
 
 > “Cada venta tiene asociada las prendas que se vendieron, su cantidad y la fecha de venta. Las ventas pueden ser en efectivo o con tarjeta. En el caso que sea con tarjeta, tienen el mismo comportamiento que en efectivo (el cual no modifica el precio), solo que se le aplica un recargo según la cantidad de cuotas seleccionadas (cantidad de cuotas * un coeficiente fijo + 0.01 del valor de cada prenda).”
 
+## Criterios de Entrega Final
+
+### Punto 1
+Entregar un proyecto java exportado en formato zip o rar con todo el código fuente y los scripts para la creación de las tablas en la base de datos MySql que corresponda a cada equipo.
+El proyecto debe ejecutarse, idealmente en el puerto http://localhost:8090
+
+### Punto 2
+Completar la vista de Venta y poder cargar una venta del tipo Efectivo y Tarjeta y la posibilidad de agregar, modificar y quitar items para la venta de un cliente.
+
+### Fecha de entrega Diciembre 2021
+
+**Todos los puntos anteriores más**
+
+### Punto 3
+Agregar la entidad Negocio/Tienda que posee una lista de ventas y resolver el método de “calcular ganancias de un día”
+
+
 ## Cómo empezar
 
 Debemos tener
