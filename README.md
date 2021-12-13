@@ -67,7 +67,7 @@ Una vez importado
 o en consola sobre el proyecto a la altura del `pom.xml`
 
 ```shell
-dv-ds-20212c-g1$ mvn clean install
+dv-ds-20212c-g1$ mvn clean install -DskipTests
 ```
 
 ### Instalación de Lombok
