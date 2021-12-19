@@ -38,7 +38,7 @@ public class Item implements Serializable {
 	private Integer cantidad;
 
 	@ManyToOne
-	@JoinColumn(name = "itm_prenda")
+	@JoinColumn(name = "itm_prd_id", referencedColumnName = "prd_id", nullable = false)
 	private Prenda prenda;
 
 	public BigDecimal importe() {

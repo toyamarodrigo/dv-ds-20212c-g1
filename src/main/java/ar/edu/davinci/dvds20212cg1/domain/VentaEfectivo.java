@@ -14,7 +14,7 @@ import lombok.experimental.SuperBuilder;
 @Entity
 @PrimaryKeyJoinColumn(name = "vta_id")
 @DiscriminatorValue("EFECTIVO")
-@Table(name = "ventas_efectivos")
+@Table(name = "ventas_efectivo")
 
 @Data
 @NoArgsConstructor(force = true)
