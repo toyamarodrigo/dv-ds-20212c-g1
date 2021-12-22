@@ -1,20 +1,14 @@
-DROP TABLE IF EXISTS ventas_tarjeta;
-
-DROP TABLE IF EXISTS ventas_efectivo;
-
-DROP TABLE IF EXISTS venta_items;
-
 DROP TABLE IF EXISTS negocios;
-
-DROP TABLE IF EXISTS ventas;
-
-DROP TABLE IF EXISTS prendas;
-
 DROP TABLE IF EXISTS clientes;
+DROP TABLE IF EXISTS prendas;
+DROP TABLE IF EXISTS ventas;
+DROP TABLE IF EXISTS venta_items;
+DROP TABLE IF EXISTS ventas_efectivo;
+DROP TABLE IF EXISTS ventas_tarjeta;
 
 create table negocios (
 	ngc_id BIGINT NOT NULL AUTO_INCREMENT,
-	ngc_sucursal VARCHAR(255) DEFAULT NULL,
+	ngc_sucursal VARCHAR(255) NOT NULL,
 	ngc_ganancia BIGINT DEFAULT NULL,
 	PRIMARY KEY (ngc_id)
 );
