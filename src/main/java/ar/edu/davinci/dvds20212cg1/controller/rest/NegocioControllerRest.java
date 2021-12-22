@@ -131,11 +131,11 @@ public class NegocioControllerRest extends TiendaAppRest {
 		}
 		
 		try {
-			negocios = negocioService.calcularGananciaPorDia(fecha).stream().filter(n -> Objects.equals(n.getId(), sucursalId)).collect(Collectors.toList());
+			negocios = negocioService.calcularGananciaPorDia(fecha).stream().filter(n -> Objects.equals(n.getId(), sucursalId)).collect(Collectors.toList());			
 		} catch (Exception e) {
 			LOGGER.error(e.getMessage());
 			e.printStackTrace();
-		}
+		}		
 
 		LOGGER.info("Ganancias de las ventas del dia");
 

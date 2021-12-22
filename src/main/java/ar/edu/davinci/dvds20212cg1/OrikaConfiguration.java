@@ -94,12 +94,7 @@ public class OrikaConfiguration {
 						
 						negocioResponse.setId(negocio.getId());
 						negocioResponse.setSucursal(negocio.getSucursal());
-						// TODO: NullPointerException FIX
-						if(negocio.calcularGananciaTotal() == BigDecimal.ZERO || negocio.calcularGananciaTotal() == null) {
-							negocioResponse.setImporteTotal(BigDecimal.ZERO);
-						} else {
-							negocioResponse.setImporteTotal(negocio.calcularGananciaTotal());
-						}
+						negocioResponse.setImporteTotal(negocio.calcularGananciaTotal());
 					}
 				}).register();
 

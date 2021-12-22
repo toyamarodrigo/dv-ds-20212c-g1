@@ -43,7 +43,7 @@ public class Negocio implements Serializable {
 	@Column(name = "ngc_id")
 	private Long id;
 	
-	@Column(name = "ngc_sucursal")
+	@Column(name = "ngc_sucursal", nullable = false)
 	private String sucursal;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "negocio", cascade = CascadeType.PERSIST, orphanRemoval = true   )
