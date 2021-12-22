@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -19,7 +18,6 @@ import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -51,6 +49,7 @@ public class Negocio implements Serializable {
 	private List<Venta> ventas;
 
 	@Column(name = "ngc_ganancia")
+	@JsonIgnore
 	private BigDecimal ganancia;
 	
     public BigDecimal calcularGananciaPorDia(Date dia) {

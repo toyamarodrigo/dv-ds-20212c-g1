@@ -46,10 +46,27 @@ public class NegocioControllerRest extends TiendaAppRest {
 	 * Listar
 	 */
 	@GetMapping(path = "/negocio/all")
-	public List<Negocio> getListAll() {
+	public ResponseEntity<List<NegocioResponse>> getListAll() {
 		LOGGER.info("Listar todos los clientes");
 
-		return negocioService.list();
+		List<NegocioResponse> negocioResponse = null;
+		List<Negocio> negocios = null;
+		
+		try {
+			negocios = negocioService.list();
+		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
+			e.printStackTrace();
+		}
+		
+		try {
+			negocioResponse = negocios.stream().map(negocio -> mapper.map(negocio, NegocioResponse.class)).collect(Collectors.toList());
+		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
+			e.printStackTrace();
+		}
+
+		return new ResponseEntity<>(negocioResponse, HttpStatus.OK);
 	}
 
 	/*
@@ -113,7 +130,7 @@ public class NegocioControllerRest extends TiendaAppRest {
 	 * Get Negocios by Fecha de venta
 	 */
 	@GetMapping(path = "negocio/{sucursalId}/total")
-	public List<Negocio> getNegocioVentas(@PathVariable Long sucursalId,
+	public ResponseEntity<List<NegocioResponse>> getNegocioVentas(@PathVariable Long sucursalId,
 			@RequestParam(required = true, name = "fecha") String date) {
 		LOGGER.info("Lista negocio con id: " + sucursalId);
 		LOGGER.info("Fecha: " + date);
@@ -121,6 +138,7 @@ public class NegocioControllerRest extends TiendaAppRest {
 		DateFormat formatearFecha = new SimpleDateFormat(Constantes.FORMATO_FECHA);
 		Date fecha = null;
 		
+		List<NegocioResponse> negocioResponses = null;
 		List<Negocio> negocios = null;
 		
 		try {
@@ -131,7 +149,14 @@ public class NegocioControllerRest extends TiendaAppRest {
 		}
 		
 		try {
-			negocios = negocioService.calcularGananciaPorDia(fecha).stream().filter(n -> Objects.equals(n.getId(), sucursalId)).collect(Collectors.toList());
+			if(sucursalId == null) {
+				negocios = negocioService.calcularGananciaPorDia(fecha);
+			} else {
+				negocios = negocioService.calcularGananciaPorDia(fecha).stream().filter(n -> Objects.equals(n.getId(), sucursalId)).collect(Collectors.toList());
+			}
+
+			negocioResponses = negocios.stream().map(negocio -> mapper.map(negocio, NegocioResponse.class)).collect(Collectors.toList());
+
 		} catch (Exception e) {
 			LOGGER.error(e.getMessage());
 			e.printStackTrace();
@@ -139,7 +164,7 @@ public class NegocioControllerRest extends TiendaAppRest {
 
 		LOGGER.info("Ganancias de las ventas del dia");
 
-		return negocios;
+		return new ResponseEntity<>(negocioResponses, HttpStatus.OK);
 	}
 
 	/*
