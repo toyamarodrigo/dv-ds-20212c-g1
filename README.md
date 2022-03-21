@@ -128,6 +128,8 @@ dv-ds-20212c-g1$ java -jar target/dv-ds-20212c-g1-0.0.1-SNAPSHOT.jar
 
 ### Diagrama de Clases
 
+Este repositorio NO incluye `EstadoPrendaStrategy`
+
 ![Diagrama de clases](https://i.imgur.com/eZLzCHq.png)
 
 ### Mindmap
